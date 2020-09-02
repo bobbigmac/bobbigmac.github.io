@@ -1,0 +1,35 @@
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.wrapper {
+	user-select: none;
+
+	width: 100vw;
+	height: 100vh;
+
+	background-color: #cd0a0a;
+	font-family: serif;
+	color: #eb8f8f;
+}
+
+.wrapper h1 {
+	word-wrap: nowrap;
+
+	text-align: right;
+	text-transform: uppercase;
+
+	font-size: 30vh;
+	line-height: 0.655em;
+	letter-spacing: -0.1em;
+
+	margin-bottom: 0;
+}
+.wrapper p {
+	text-align: center;
+	font-size: 2em;
+	font-style: italic;
+}

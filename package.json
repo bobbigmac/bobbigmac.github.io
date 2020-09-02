@@ -1,0 +1,22 @@
+{
+  "name": "bobbigmac.github.io",
+  "version": "1.0.0",
+  "description": "Professional profile site for Bob Davies",
+  "scripts": {
+    "start": "reload -b -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3",
+    "reload": "^3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobbigmac/bobbigmac.github.io.git"
+  },
+  "author": "Bob Davies",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bobbigmac/bobbigmac.github.io/issues"
+  },
+  "homepage": "https://github.com/bobbigmac/bobbigmac.github.io#readme.md"
+}
