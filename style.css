@@ -17,19 +17,24 @@ html, body {
 }
 
 .wrapper h1 {
-	word-wrap: nowrap;
-
 	text-align: right;
 	text-transform: uppercase;
 
 	font-size: 30vh;
-	line-height: 0.655em;
-	letter-spacing: -0.1em;
+	line-height: 0.651em;
+	letter-spacing: -0.12em;
+
+	text-rendering: optimizeLegibility;
 
 	margin-bottom: 0;
 }
+
 .wrapper p {
 	text-align: center;
-	font-size: 2em;
+	font-size: 1.2em;
 	font-style: italic;
+}
+
+.hidden {
+	display: none;
 }
