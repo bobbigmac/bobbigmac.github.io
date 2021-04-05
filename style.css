@@ -19,14 +19,18 @@ html, body {
 .wrapper h1 {
 	text-align: right;
 	text-transform: uppercase;
-
-	font-size: 30vh;
-	line-height: 0.651em;
-	letter-spacing: -0.12em;
-
 	text-rendering: optimizeLegibility;
 
+	font-size: 30vh;
+	line-height: 0.81em;
+	letter-spacing: -0.08em;
+
+	color: white;
+	text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+	font-family: cursive;
+
 	margin-bottom: 0;
+	padding: 12px 24px;
 }
 
 .wrapper p {
