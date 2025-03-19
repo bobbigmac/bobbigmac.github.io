@@ -15,34 +15,43 @@
 	--light-green: #94E089;
 	--light-blue: #7869C4;
 	--light-grey: #9F9F9F;
+	
+	/* Container size variables */
+	--wrapper-width-vh: calc(80vh * 4/3); /* Width based on viewport height */
+	--wrapper-width-vw: 80vw; /* Width based on viewport width */
+	--wrapper-width: min(var(--wrapper-width-vh), var(--wrapper-width-vw)); /* Actual width */
+	
+	/* Character size variables */
+	--char-count-x: 40; /* Exactly 40 characters per line */
+	--char-size-ratio: 0.05; /* Each character is 5% of container width for 40 chars */
 }
 
 html, body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+	height: 100%;
+	width: 100%;
 }
 
 body {
-	border-right: 10vw solid var(--light-blue);
-	border-left: 10vw solid var(--light-blue);
-	border-top: 10vh solid var(--light-blue);
-	border-bottom: 10vh solid var(--light-blue);
+	background-color: var(--light-blue);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .wrapper {
 	user-select: none;
-	width: 100%;
-	height: 100%;
 	position: relative;
-	padding: 0;
+	width: var(--wrapper-width);
+	height: min(calc(var(--wrapper-width-vw) * 3/4), 80vh);
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
+	align-items: flex-start;
 	background-color: var(--blue);
-	color: var(--light-grey);
-	font-family: 'VT323', monospace;
 	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .wrapper::before {
@@ -80,31 +89,33 @@ body {
 	}
 }
 
+/* Content container */
 .content {
-	aspect-ratio: 4/3;
-	width: min(calc(100vh * 4/3 - 20vw), calc(100vw - 20vw));
-	height: min(calc(100vw * 3/4 - 20vh), calc(100vh - 20vh));
+	width: 100%;
+	height: 100%;
 	box-sizing: border-box;
-	padding: 2rem;
-	
-	/* C64 exact character layout */
-	display: grid;
-	grid-template-rows: repeat(25, 1fr);
-	font-size: min(calc((100vh - 20vh) / 12.5), calc((100vw - 20vw) / 20));
-	line-height: 1;
-	
-	white-space: pre;
-	letter-spacing: 0;
+	padding: 0.7rem 0.7rem;
 	position: relative;
 	filter: brightness(1.2) blur(0.5px) contrast(1.1) saturate(1.1);
-	box-shadow: 
-		0 0 10px rgba(var(--blue), 0.3),
-		inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-.title, p {
+/* ASCII art formatting */
+pre {
 	margin: 0;
 	padding: 0;
+	color: var(--light-grey);
+	font-family: 'VT323', monospace;
+	
+	/* Calculate font size based on container width - not viewport width */
+	font-size: calc(var(--wrapper-width) * var(--char-size-ratio));
+	
+	line-height: 1.2;
+	overflow: hidden;
+	white-space: pre;
+	text-rendering: optimizeSpeed;
+	width: 100%;
+	letter-spacing: 0;
+	font-kerning: none;
 }
 
 .hidden {
