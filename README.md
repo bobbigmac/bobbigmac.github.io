@@ -1,6 +1,7 @@
-# bobbigmac.github.io
+# Bob Davies | Web Developer
 
 My professional profile.
 
-- #f1f3de #eb8f8f #ec0101 #cd0a0a
-- #ebdc87 #ffa36c #799351 #d54062
+## About
+
+Minimalist Commodore 64-inspired personal site.
