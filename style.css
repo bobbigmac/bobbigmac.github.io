@@ -23,7 +23,7 @@
 	
 	/* Character size variables */
 	--char-count-x: 40; /* Exactly 40 characters per line */
-	--char-size-ratio: 0.05; /* Each character is 5% of container width for 40 chars */
+	--char-size-ratio: 0.06; /* Each character is 5% of container width for 40 chars */
 }
 
 html, body {
