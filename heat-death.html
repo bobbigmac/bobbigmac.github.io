@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Heat Death Countdown — WebGL</title>
+<link rel="stylesheet" href="heat-death/style.css" />
+</head>
+<body>
+<button class="menu-btn" id="menuBtn">☰</button>
+<div class="backdrop" id="backdrop"></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="navbar"><div class="dot"></div><h1>COSMIC TIMER</h1></div>
+    <div class="controls">
+      <div class="row">
+        <div class="entropy" style="flex:1"><div class="fill" id="entropyFill" style="width:0%"></div></div>
+        <div class="meta" id="entropyPct">0.000%</div>
+      </div>
+      <div class="row">
+        <button class="btn now-btn" id="returnNow">Return to Now</button>
+      </div>
+    </div>
+    <div class="meta">Jump to an epoch</div>
+    <div class="jump-list" id="jumpList"></div>
+  </aside>
+
+  <main class="main">
+    <canvas id="gl"></canvas>
+
+    <div class="hud">
+      <div class="odometer">
+        <span class="label">Time To Heat Death</span>
+        <span class="value" id="bigCounter">—</span>
+        <span class="units" id="counterUnits">seconds</span>
+      </div>
+    </div>
+    <div class="context-stack" id="contextStack"></div>
+
+    <div class="scroll-rail">
+      <div class="rail" id="rail">
+        <div class="marker" id="nowMarker"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="bar">
+        <span class="meta">Timeline</span>
+        <input type="range" min="0" max="10000" value="0" id="timeline" />
+        <span class="meta" id="cursorYear">Year: —</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="heat-death/app.js" defer></script>
+</body>
+</html>
