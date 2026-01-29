@@ -11,21 +11,238 @@
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="scrollbar.css">
+		<style>
+			.content { overflow: auto; }
+			.screen {
+				color: var(--light-grey);
+				font-family: 'VT323', monospace;
+				font-size: calc(var(--wrapper-width) * var(--char-size-ratio));
+				line-height: 1.2;
+				white-space: pre-wrap;
+				text-rendering: optimizeSpeed;
+				width: 100%;
+				letter-spacing: 0;
+				font-kerning: none;
+			}
+			.line { display: block; }
+			.screen a {
+				color: var(--cyan);
+				text-decoration: none;
+			}
+			.screen a:hover { text-decoration: underline; }
+			.screen a:focus-visible {
+				outline: 2px dashed var(--yellow);
+				outline-offset: 2px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="wrapper">
 			<div class="content">
+				<div id="screen" class="screen" aria-live="polite"></div>
+				<noscript>
 <pre>    **** COMMODORE 64 BASIC V2 ****
  64K RAM SYSTEM  38911 BASIC BYTES FREE
 
 READY.
 10 PRINT "Bob Davies likes coding"
-20 PRINT "He _might_ consider"
-30 PRINT "doing it for money"
-</pre>
-<!-- ...probably not though, unless you're pretty cool or are offering quite a lot of money. -->
-<!-- He really likes working on his own projects, playing guitar and videogames, reading things that everyone else thinks are boring, and pretty much getting up and going to bed whenever he wants to -->
+
+(Enable JavaScript for navigation.)</pre>
+				</noscript>
 			</div>
 		</div>
+
+		<script>
+			// Add new sections/pages by extending DATA (new key -> new section).
+			const DATA = {
+				info: [
+					{
+						title: "Intro",
+						body: [
+							"I'm Bob. I build software and I like keeping things simple.",
+							"I enjoy side projects, games, guitar and nerd stuff.",
+						].join("\n"),
+					},
+					{
+						title: "FAQ",
+						body: [
+							"Q: Are you available for work?",
+							"A: Sometimes.",
+							"Q: What do you build?",
+							"A: Web apps, tools, games, toys, whatever.",
+							"Q: Why the Commodore 64 look?",
+							"A: I got bored of the usual corpo themes, but I do quite like anti-design.",
+						].join("\n"),
+					},
+				],
+				links: [
+					{ title: "bsky/bobbigmac", href: "https://bsky.app/profile/bobbigmac.bsky.social" },
+					{ title: "bobbigmac.com", href: "https://bobbigmac.com", note: "Blog" },
+					{ title: "github/bobbigmac", href: "https://github.com/bobbigmac" },
+				],
+				movies: [
+					{ title: "Alien", review: "It's good innit" },
+					{ title: "Blade Runner", review: "The best film ever made, until age 25 when I noticed it's paced SLOOOOW and its themes are a bit thin" },
+					{ title: "Mad Max: Fury Road", review: "Sandy af" },
+					{ title: "Star Trek: Insurrection", review: "My fave trek movie cos it's the one most like an episode of TNG" },
+				],
+				games: [
+					{ title: "Hitman 1-2-3 (now WoA)", review: "Great for completionists, so many challenges." },
+					{ title: "World of Warcraft", review: "I quit in 2014, then again for good in 2019, when it helped me quit smoking." },
+					{ title: "DOOM (2016)", review: "Pew pew pew" },
+					{ title: "MGSV", review: "Nuclear disarmament simulator, collection action men like panini stickers" },
+					{ title: "Starflight", review: "Space games are pretty complicated nowadays, this just isn't that complicated" },
+				],
+				music: [
+					{ title: "Portishead", review: "Chill, always reminds me of Buffy the Vampire Slayer." },
+					{ title: "Radiohead", review: "My go to 'leave me alone' music." },
+					{ title: "Muse", review: "Some girl once looked me up and down in the pub and said 'I bet you like Muse', which was of course true" },
+					{ title: "Ice T", review: "The OG. Home Invasion has yet to be topped" },
+					{ title: "Radio 3", review: "Gimme a rainy evening and a Petroc Trelawny in my ear" },
+					{ title: "Johann Johannsson", review: "Miner's hymns and IBM 1401 follow me round" },
+				],
+				"dev-platforms": [
+					{ title: "Angular", review: "Such a dead platform, if you ask me about this, I will tell you to throw it away" },
+					{ title: "React", review: "If React is so great, why is every website built with it a usability nightmare? It makes managing complex code better, at the cost of the user experience." },
+					{ title: "Next", review: "Good idea, but you probably just needed a static html file and a github action" },
+					{ title: "Vue", review: "I like it, but just use google sheets already, you don't need a website ;)" },
+					{ title: "Node", review: "Pretty much what I think in, since it beat out C#." },
+					{ title: "Python", review: "Significant whitespace? I suppose, if we absolutely have to" },
+					{ title: "Ruby", review: "Not do or do, try no is There" },
+					{ title: "Rust", review: "Fast and neat, but I'm not sure if it's worth the hassle." },
+					{ title: "PHP", review: "Still probably the best platform for most websites, that I haven't used for a decade" },
+					{ title: "Java", review: "For when I want a headache" },
+					{ title: "C#", review: "When you're the type of person who schedules a meeting that could have been an email" },
+					{ title: "C++", review: "I write this occasionally, but always with trepidation because it usually kicks my butt" },
+				],
+			};
+
+			const screen = document.getElementById("screen");
+
+			const titleCase = (s) => (s || "").replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+			const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+			const slugify = (s) =>
+				String(s)
+					.toLowerCase()
+					.trim()
+					.replace(/['"]/g, "")
+					.replace(/[^a-z0-9]+/g, "-")
+					.replace(/^-+|-+$/g, "") || "item";
+
+			function buildIndex(data) {
+				const index = {};
+				for (const [type, items] of Object.entries(data)) {
+					const used = new Map();
+					index[type] = [];
+					for (let i = 0; i < items.length; i++) {
+						const item = items[i];
+						const base = slugify(item.title || `item-${i + 1}`);
+						const n = (used.get(base) || 0) + 1;
+						used.set(base, n);
+						const slug = n === 1 ? base : `${base}-${n}`;
+						index[type].push({ ...item, slug, type });
+					}
+				}
+				return index;
+			}
+
+			const INDEX = buildIndex(DATA);
+
+			function setLines(lines) {
+				screen.replaceChildren();
+				for (const line of lines) {
+					const el = document.createElement("div");
+					el.className = "line";
+					el.innerHTML = line;
+					screen.appendChild(el);
+				}
+			}
+
+			function parseRoute() {
+				const raw = (location.hash || "").replace(/^#\/?/, "");
+				return raw.split("/").filter(Boolean).map(decodeURIComponent);
+			}
+
+			function renderHome() {
+				const types = Object.keys(DATA);
+				const lines = [
+					`    **** COMMODORE 64 BASIC V2 ****`,
+					` 64K RAM SYSTEM  38911 BASIC BYTES FREE`,
+					``,
+					`READY.`,
+					`10 PRINT "Bob Davies likes coding"`,
+					``,
+					...types.map((t) => `- <a href="#/${encodeURIComponent(t)}">${escapeHtml(titleCase(t))}</a>`),
+				];
+				setLines(lines);
+			}
+
+			function renderType(type) {
+				const items = INDEX[type];
+				if (!items) return renderNotFound();
+
+				const lines = [
+					`**** ${escapeHtml(titleCase(type))} ****`,
+					``,
+					...items.map((item, i) => {
+						const n = String(i + 1).padStart(2, "0");
+						const label = escapeHtml(item.title);
+						if (item.href) {
+							const note = item.note ? ` — ${escapeHtml(item.note)}` : "";
+							return `${n}. <a href="${escapeHtml(item.href)}">${label}</a>${note}`;
+						}
+						return `${n}. <a href="#/${encodeURIComponent(type)}/${encodeURIComponent(item.slug)}">${label}</a>`;
+					}),
+					``,
+					`<a href="#/">Back</a>`,
+				];
+				setLines(lines);
+			}
+
+			function renderItem(type, slug) {
+				const items = INDEX[type];
+				if (!items) return renderNotFound();
+
+				const item = items.find((x) => x.slug === slug);
+				if (!item) return renderNotFound();
+
+				if (item.href) {
+					const note = item.note ? `<br><br>${escapeHtml(item.note)}` : "";
+					setLines([
+						`**** ${escapeHtml(item.title)} ****`,
+						``,
+						`<a href="${escapeHtml(item.href)}">Open</a>${note}`,
+						``,
+						`<a href="#/${encodeURIComponent(type)}">Back</a>`,
+					]);
+					return;
+				}
+
+				const text = item.body ?? item.review ?? item.content ?? "";
+				const body = String(text).split("\n").map(escapeHtml).join("<br>");
+				setLines([
+					`**** ${escapeHtml(item.title)} ****`,
+					``,
+					body || `(no content)`,
+					``,
+					`<a href="#/${encodeURIComponent(type)}">Back</a>`,
+				]);
+			}
+
+			function renderNotFound() {
+				setLines([`**** NOT FOUND ****`, ``, `Try <a href="#/">Home</a>.`]);
+			}
+
+			function route() {
+				const parts = parseRoute();
+				if (parts.length === 0) return renderHome();
+				if (parts.length === 1) return renderType(parts[0]);
+				return renderItem(parts[0], parts[1]);
+			}
+
+			window.addEventListener("hashchange", route);
+			route();
+		</script>
 	</body>
 </html>
