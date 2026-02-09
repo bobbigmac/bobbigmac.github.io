@@ -124,3 +124,27 @@ pre {
 
 .yellow { color: var(--yellow); }
 .cyan { color: var(--cyan); }
+
+
+.content { overflow: auto; }
+.screen {
+	color: var(--light-grey);
+	font-family: 'VT323', monospace;
+	font-size: calc(var(--wrapper-width) * var(--char-size-ratio));
+	line-height: 1.2;
+	white-space: pre-wrap;
+	text-rendering: optimizeSpeed;
+	width: 100%;
+	letter-spacing: 0;
+	font-kerning: none;
+}
+.line { display: block; }
+.screen a {
+	color: var(--cyan);
+	text-decoration: none;
+}
+.screen a:hover { text-decoration: underline; }
+.screen a:focus-visible {
+	outline: 2px dashed var(--yellow);
+	outline-offset: 2px;
+}
