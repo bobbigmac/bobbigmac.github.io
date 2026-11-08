@@ -1,3 +1,11 @@
+@font-face {
+	font-family: 'VT323';
+	font-style: normal;
+	font-weight: 400;
+	font-display: optional;
+	src: url('vt323.woff2') format('woff2');
+}
+
 :root {
 	--black: #000000;
 	--white: #FFFFFF;
