@@ -41,9 +41,16 @@
           background: var(--panel); border: 1px solid var(--line);
           color: var(--dim); cursor: pointer; text-decoration: none; white-space: nowrap; }
   .chip:hover { color: var(--text); border-color: var(--accent); }
+  .chip.active { background: var(--accent); border-color: var(--accent);
+                 color: #fff; font-weight: 600; }
+  .chip.active b { color: #d8f3e8; }
   .chip b { color: var(--accent); font-weight: 600; margin-left: 3px; }
   .toggle { display: inline-flex; align-items: center; gap: 4px; font-size: 12px;
-            color: var(--dim); cursor: pointer; user-select: none; white-space: nowrap; }
+            color: var(--dim); cursor: pointer; user-select: none; white-space: nowrap;
+            padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line);
+            background: var(--panel); }
+  .toggle:has(input:checked) { background: var(--accent); border-color: var(--accent);
+                               color: #fff; font-weight: 600; }
   .toggle input { accent-color: var(--accent); margin: 0; }
 
   /* masonry-style column flow: panels pack tight, no dead vertical space */
