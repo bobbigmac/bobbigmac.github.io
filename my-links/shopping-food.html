@@ -1,0 +1,152 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shopping &amp; food · my-links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<header class="pagehead">
+  <div class="eyebrow">my-links</div>
+  <h1>Shopping &amp; food</h1>
+  <div class="mono">
+    <span id="count">8</span>
+  items · bm 8 · old-bm 4 ·
+    <a href="index.html">← index</a>
+  </div>
+</header>
+<div class="page">
+  <div class="chips">
+    <span class="chip" data-t="projects">projects 4</span>
+    <span class="chip" data-t="coding">coding 2</span>
+    <span class="chip" data-t="sst">sst 2</span>
+  </div>
+  <input class="f" id="q" placeholder="filter…" oninput="filter()">
+  <h2 class="year">2026
+    <span class="meta">(1)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2026-11-16</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://sellercentral.amazon.com/cu/contact-us?serviceId=MINIMAL_SCORE">Amazon</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+  <h2 class="year">2025
+    <span class="meta">(3)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2025-12-28</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.johnlewis.com/john-lewis-spa-waffle-face-cloths-pack-of-3/steel-avocado-indigo/p6379193?s_ppc=2dx_mixed_home_BAU&amp;tmad=c&amp;tmcampid=2&amp;gclsrc=aw.ds&amp;gad_source=1&amp;gad_campaignid=20155422167&amp;gbraid=0AAAAAD2el1z0mDGhZ2brrJzy2Zj5MUj06">John Lewis Spa Waffle Face Cloths, Pack of 3, Steel/Avocado/Indigo</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="">
+      <span class="d">2025-09-30</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.aliexpress.com/p/tracking/index.html?_addShare=no&amp;_login=yes&amp;tradeOrderId=3061543029413384">Tracking</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="">
+      <span class="d">2025-09-24</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.aliexpress.com/p/order/index.html">AliExpress Orders</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+  <h2 class="year">2024
+    <span class="meta">(1)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="projects">
+      <span class="d">2024-08-05</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://eu-west-1.console.aws.amazon.com/amplify/apps/d6you6uzi3zfb/access">Access Control | Amplify | eu-west-1</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+  </ul>
+  <h2 class="year">2023
+    <span class="meta">(1)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="projects">
+      <span class="d">2023-01-04</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://uk.buymeonce.com/">Buy Me Once | Selling Products That Are Built To Last | Buy Me Once UK</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+  </ul>
+  <h2 class="year">2022
+    <span class="meta">(2)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="coding projects sst">
+      <span class="d">2022-10-18</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://us-east-1.console.aws.amazon.com/amplify/home?region=us-east-1#/">AWS Amplify console</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="coding">coding</a>
+        <a href="#" data-t="projects">projects</a>
+        <a href="#" data-t="sst">sst</a>
+      </span>
+    </li>
+    <li data-tags="coding projects sst">
+      <span class="d">2022-10-18</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://aws.amazon.com/amplify/">AWS Amplify – Scalable, Full-Stack Web and Mobile Apps, Built on AWS – Amazon Web Services</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="coding">coding</a>
+        <a href="#" data-t="projects">projects</a>
+        <a href="#" data-t="sst">sst</a>
+      </span>
+    </li>
+  </ul>
+</div>
+<script>
+let active=null;
+document.addEventListener('click',e=>{
+const c=e.target.closest('[data-t]');
+if(!c)return;
+e.preventDefault();
+active=(active===c.dataset.t)?null:c.dataset.t;
+document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.t===active));
+filter();});
+function filter(){const q=(document.getElementById('q')||{value:''}).value.toLowerCase();
+let shown=0;
+document.querySelectorAll('ul.items li').forEach(li=>{
+const okT=!active||li.dataset.tags.split(' ').includes(active);
+const okQ=!q||li.textContent.toLowerCase().includes(q);
+const vis=okT&&okQ;
+li.classList.toggle('hidden',!vis);
+if(vis)shown++;});
+const n=document.getElementById('count');if(n)n.textContent=shown;
+document.querySelectorAll('h2.year').forEach(h=>{
+let n2=h.nextElementSibling,any=false;
+while(n2&&n2.tagName==='UL'){if(n2.querySelector('li:not(.hidden)'))any=true;n2=n2.nextElementSibling;}
+h.classList.toggle('hidden',!any);});}
+</script>

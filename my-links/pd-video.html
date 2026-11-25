@@ -1,0 +1,147 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Public-domain video &amp; TV archive · my-links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<header class="pagehead">
+  <div class="eyebrow">my-links</div>
+  <h1>Public-domain video &amp; TV archive</h1>
+  <div class="mono">
+    <span id="count">9</span>
+  items · bm 9 ·
+    <a href="index.html">← index</a>
+  </div>
+</header>
+<div class="page">
+  <div class="chips">
+    <span class="chip" data-t="pd-videos">pd-videos 8</span>
+    <span class="chip" data-t="projects">projects 8</span>
+  </div>
+  <input class="f" id="q" placeholder="filter…" oninput="filter()">
+  <h2 class="year">2026
+    <span class="meta">(9)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2026-11-14</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://web.archive.org/web/20210418183605/https://leftcopy.org/">What is Left Copy? | Left Copy (_c)</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.dvidshub.net/search/2.0?type=video&amp;dateStart=1998-01-12&amp;dateEnd=2013-12-12">DVIDS - Search</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.dvidshub.net/search/2.0?type=video">DVIDS - Search</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://tellyads.com/browse">Browse TV Ads | TellyAds</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.archives.gov/research/motion-pictures/space-exploration">Space Exploration: Films at the National Archives in College Park, MD | National Archives</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://openbeelden.nl/media.en?q=&amp;p=1222863&amp;sf=created&amp;so=down&amp;offset=9850&amp;max=10">Media - Open Beelden</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://tvark.org/programmes">Programmes | TVARK</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-12</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://tvark.org/c/adverts">Adverts | TVARK</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="pd-videos projects">
+      <span class="d">2026-05-11</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.flickr.com/photos/biodivlibrary/albums/with/72157719479761644">Biodiversity Heritage Library’s albums | Flickr</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="pd-videos">pd-videos</a>
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+  </ul>
+</div>
+<script>
+let active=null;
+document.addEventListener('click',e=>{
+const c=e.target.closest('[data-t]');
+if(!c)return;
+e.preventDefault();
+active=(active===c.dataset.t)?null:c.dataset.t;
+document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.t===active));
+filter();});
+function filter(){const q=(document.getElementById('q')||{value:''}).value.toLowerCase();
+let shown=0;
+document.querySelectorAll('ul.items li').forEach(li=>{
+const okT=!active||li.dataset.tags.split(' ').includes(active);
+const okQ=!q||li.textContent.toLowerCase().includes(q);
+const vis=okT&&okQ;
+li.classList.toggle('hidden',!vis);
+if(vis)shown++;});
+const n=document.getElementById('count');if(n)n.textContent=shown;
+document.querySelectorAll('h2.year').forEach(h=>{
+let n2=h.nextElementSibling,any=false;
+while(n2&&n2.tagName==='UL'){if(n2.querySelector('li:not(.hidden)'))any=true;n2=n2.nextElementSibling;}
+h.classList.toggle('hidden',!any);});}
+</script>

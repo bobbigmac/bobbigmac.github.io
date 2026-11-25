@@ -3,7 +3,8 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: optional;
-	src: url('vt323.woff2') format('woff2');
+	src: url('vt323.woff2') format('woff2'),
+		url('VT323.ttf') format('truetype');
 }
 
 :root {

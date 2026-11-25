@@ -1,0 +1,106 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Self-hosting &amp; VPS · my-links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<header class="pagehead">
+  <div class="eyebrow">my-links</div>
+  <h1>Self-hosting &amp; VPS</h1>
+  <div class="mono">
+    <span id="count">3</span>
+  items · bm 2 · ★ 1 ·
+    <a href="index.html">← index</a>
+  </div>
+</header>
+<div class="page">
+  <div class="chips">
+    <span class="chip" data-t="aws">aws 1</span>
+    <span class="chip" data-t="azure">azure 1</span>
+    <span class="chip" data-t="caprover">caprover 1</span>
+    <span class="chip" data-t="captainduckduck">captainduckduck 1</span>
+    <span class="chip" data-t="containers">containers 1</span>
+    <span class="chip" data-t="deployment">deployment 1</span>
+    <span class="chip" data-t="digitalocean">digitalocean 1</span>
+    <span class="chip" data-t="docker">docker 1</span>
+    <span class="chip" data-t="docker-swarm">docker-swarm 1</span>
+    <span class="chip" data-t="github">github 1</span>
+    <span class="chip" data-t="heroku">heroku 1</span>
+    <span class="chip" data-t="nginx">nginx 1</span>
+    <span class="chip" data-t="nginx-docker">nginx-docker 1</span>
+    <span class="chip" data-t="node">node 1</span>
+    <span class="chip" data-t="node-js">node-js 1</span>
+    <span class="chip" data-t="nodejs">nodejs 1</span>
+    <span class="chip" data-t="paas">paas 1</span>
+    <span class="chip" data-t="php">php 1</span>
+    <span class="chip" data-t="python">python 1</span>
+    <span class="chip" data-t="typescript">typescript 1</span>
+    <span class="chip" data-t="webserver">webserver 1</span>
+  </div>
+  <input class="f" id="q" placeholder="filter…" oninput="filter()">
+  <h2 class="year">2025
+    <span class="meta">(3)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2025-09-29</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.hetzner.com/cloud">Cheap hosted VPS by Hetzner: our cloud hosting services</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="aws azure caprover captainduckduck containers deployment digitalocean docker docker-swarm github heroku nginx nginx-docker node node-js nodejs paas php python typescript webserver">
+      <span class="d">2025-09-27</span>
+      <span class="src star">★</span>
+      <span>
+        <a href="https://github.com/caprover/caprover">caprover/caprover</a>
+        <span class="desc">Scalable PaaS (automated Docker+nginx) - aka Heroku on Steroids</span>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="aws">aws</a>
+        <a href="#" data-t="azure">azure</a>
+        <a href="#" data-t="caprover">caprover</a>
+        <a href="#" data-t="captainduckduck">captainduckduck</a>
+        <a href="#" data-t="containers">containers</a>
+        <a href="#" data-t="deployment">deployment</a>
+        <a href="#" data-t="digitalocean">digitalocean</a>
+        <a href="#" data-t="docker">docker</a>
+        <a href="#" data-t="docker-swarm">docker-swarm</a>
+        <a href="#" data-t="github">github</a>
+      </span>
+    </li>
+    <li data-tags="">
+      <span class="d">2025-09-27</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://captain.tools.betterbritain.org.uk/#/apps">CapRover | Server Dashboard</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+</div>
+<script>
+let active=null;
+document.addEventListener('click',e=>{
+const c=e.target.closest('[data-t]');
+if(!c)return;
+e.preventDefault();
+active=(active===c.dataset.t)?null:c.dataset.t;
+document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.t===active));
+filter();});
+function filter(){const q=(document.getElementById('q')||{value:''}).value.toLowerCase();
+let shown=0;
+document.querySelectorAll('ul.items li').forEach(li=>{
+const okT=!active||li.dataset.tags.split(' ').includes(active);
+const okQ=!q||li.textContent.toLowerCase().includes(q);
+const vis=okT&&okQ;
+li.classList.toggle('hidden',!vis);
+if(vis)shown++;});
+const n=document.getElementById('count');if(n)n.textContent=shown;
+document.querySelectorAll('h2.year').forEach(h=>{
+let n2=h.nextElementSibling,any=false;
+while(n2&&n2.tagName==='UL'){if(n2.querySelector('li:not(.hidden)'))any=true;n2=n2.nextElementSibling;}
+h.classList.toggle('hidden',!any);});}
+</script>

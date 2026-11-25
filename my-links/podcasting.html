@@ -1,0 +1,135 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Podcast tooling · my-links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<header class="pagehead">
+  <div class="eyebrow">my-links</div>
+  <h1>Podcast tooling</h1>
+  <div class="mono">
+    <span id="count">8</span>
+  items · bm 7 · old-bm 2 · mine 1 ·
+    <a href="index.html">← index</a>
+  </div>
+</header>
+<div class="page">
+  <div class="chips">
+    <span class="chip" data-t="projects">projects 2</span>
+    <span class="chip" data-t="github">github 1</span>
+    <span class="chip" data-t="python">python 1</span>
+  </div>
+  <input class="f" id="q" placeholder="filter…" oninput="filter()">
+  <h2 class="year">2026
+    <span class="meta">(5)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="github python">
+      <span class="d">2026-08-31</span>
+      <span class="src">mine</span>
+      <span>
+        <a href="https://github.com/bobbigmac/podcasts">podcasts</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="github">github</a>
+        <a href="#" data-t="python">python</a>
+      </span>
+    </li>
+    <li data-tags="">
+      <span class="d">2026-07-17</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.spreaker.com/cms/monetization/adexchange">Spreaker CMS</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="">
+      <span class="d">2026-07-17</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.spreaker.com/cms/shows?filter=NETWORK&amp;network=19204226">Spreaker CMS</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="">
+      <span class="d">2026-07-17</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.spreaker.com/">Spreaker</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+    <li data-tags="">
+      <span class="d">2026-06-09</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://gemini.google.com/app/2ade324d55261ec3?utm_source=sem&amp;utm_medium=paid-media&amp;utm_campaign=lyria_sem&amp;gclsrc=aw.ds&amp;gad_source=1&amp;gad_campaignid=23543533360&amp;gbraid=0AAAAApk5BhkdVS2BoDIHFocaDwImuAnZF&amp;gclid=CjwKCAjw857RBhAgEiwAI-1yKHUEsy-rzjFRhFRWgo_vTa_VJH-vu-LlnPKC1H4lS4etaqbP4lzTDxoCOL0QAvD_BwE">Podcast Jingle Creation - Google Gemini</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+  <h2 class="year">2025
+    <span class="meta">(1)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2025-11-04</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://app.redcircle.com/shows">RedCircle | Shows</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+  <h2 class="year">2024
+    <span class="meta">(2)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="projects">
+      <span class="d">2024-09-03</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://www.dimsdale.co.uk/category/comedy/comedydramatized/page/3/">Comedy Drama Archives - Page 3 of 27 - Dimsdale Podcasts</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+    <li data-tags="projects">
+      <span class="d">2024-03-25</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://www.acast.com/en/podcasting/start-podcasting">Acast</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="projects">projects</a>
+      </span>
+    </li>
+  </ul>
+</div>
+<script>
+let active=null;
+document.addEventListener('click',e=>{
+const c=e.target.closest('[data-t]');
+if(!c)return;
+e.preventDefault();
+active=(active===c.dataset.t)?null:c.dataset.t;
+document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.t===active));
+filter();});
+function filter(){const q=(document.getElementById('q')||{value:''}).value.toLowerCase();
+let shown=0;
+document.querySelectorAll('ul.items li').forEach(li=>{
+const okT=!active||li.dataset.tags.split(' ').includes(active);
+const okQ=!q||li.textContent.toLowerCase().includes(q);
+const vis=okT&&okQ;
+li.classList.toggle('hidden',!vis);
+if(vis)shown++;});
+const n=document.getElementById('count');if(n)n.textContent=shown;
+document.querySelectorAll('h2.year').forEach(h=>{
+let n2=h.nextElementSibling,any=false;
+while(n2&&n2.tagName==='UL'){if(n2.querySelector('li:not(.hidden)'))any=true;n2=n2.nextElementSibling;}
+h.classList.toggle('hidden',!any);});}
+</script>

@@ -1,0 +1,134 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Family · my-links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<header class="pagehead">
+  <div class="eyebrow">my-links</div>
+  <h1>Family</h1>
+  <div class="mono">
+    <span id="count">7</span>
+  items · bm 7 · old-bm 6 ·
+    <a href="index.html">← index</a>
+  </div>
+</header>
+<div class="page">
+  <div class="chips">
+    <span class="chip" data-t="kirks">kirks 6</span>
+  </div>
+  <input class="f" id="q" placeholder="filter…" oninput="filter()">
+  <h2 class="year">2025
+    <span class="meta">(1)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="">
+      <span class="d">2025-09-14</span>
+      <span class="src">bm</span>
+      <span>
+        <a href="https://www.ancestry.co.uk/family-tree/tree/206176244/family?cfpid=162705687803">Horizontal Tree View - Ancestry</a>
+      </span>
+      <span class="tt"></span>
+    </li>
+  </ul>
+  <h2 class="year">2023
+    <span class="meta">(2)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="kirks">
+      <span class="d">2023-02-16</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://www.hs2.org.uk/documents/collections/claiming-compensation-if-you-receive-a-notice/">Claiming compensation if you receive a Notice - HS2</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+    <li data-tags="kirks">
+      <span class="d">2023-01-04</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://blog.cheapism.com/useless-things-you-dont-need-to-buy/#slide=6">Useless Things You Don&#x27;t Need in 2022 | Cheapism.com</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+  </ul>
+  <h2 class="year">2022
+    <span class="meta">(4)</span>
+  </h2>
+  <ul class="items">
+    <li data-tags="kirks">
+      <span class="d">2022-08-06</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://www.onlinebutcher.co.uk/lean-meats">Lean Meats</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+    <li data-tags="kirks">
+      <span class="d">2022-06-23</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://memberships.better.org.uk/centre/belle-vue-sports-village">Belle Vue Gym</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+    <li data-tags="kirks">
+      <span class="d">2022-02-11</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://www.freecycle.org/home/dashboard/">Freecycle: Dashboard</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+    <li data-tags="kirks">
+      <span class="d">2022-01-19</span>
+      <span class="src">bm</span>
+      <span class="src">old-bm</span>
+      <span>
+        <a href="https://ors-recycle.co.uk/product-category/used/desks-used/">Used Office Desks</a>
+      </span>
+      <span class="tt">
+        <a href="#" data-t="kirks">kirks</a>
+      </span>
+    </li>
+  </ul>
+</div>
+<script>
+let active=null;
+document.addEventListener('click',e=>{
+const c=e.target.closest('[data-t]');
+if(!c)return;
+e.preventDefault();
+active=(active===c.dataset.t)?null:c.dataset.t;
+document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x.dataset.t===active));
+filter();});
+function filter(){const q=(document.getElementById('q')||{value:''}).value.toLowerCase();
+let shown=0;
+document.querySelectorAll('ul.items li').forEach(li=>{
+const okT=!active||li.dataset.tags.split(' ').includes(active);
+const okQ=!q||li.textContent.toLowerCase().includes(q);
+const vis=okT&&okQ;
+li.classList.toggle('hidden',!vis);
+if(vis)shown++;});
+const n=document.getElementById('count');if(n)n.textContent=shown;
+document.querySelectorAll('h2.year').forEach(h=>{
+let n2=h.nextElementSibling,any=false;
+while(n2&&n2.tagName==='UL'){if(n2.querySelector('li:not(.hidden)'))any=true;n2=n2.nextElementSibling;}
+h.classList.toggle('hidden',!any);});}
+</script>
