@@ -48,7 +48,7 @@ if(!q){res.innerHTML='';res.style.display='none';
 if(rest)rest.style.display='';return;}
 const [ls,vs]=await Promise.all(
 [SEARCH.run('links',q,lc),SEARCH.run('videos',q,vc)]);
-res.style.display='';if(rest)rest.style.display='none';
+res.style.display='block';if(rest)rest.style.display='none';
 res.innerHTML=searchHtml(ls,vs,
 rest?'search.html?q='+encodeURIComponent(q):'');}
 inp.addEventListener('input',()=>{clearTimeout(t);
